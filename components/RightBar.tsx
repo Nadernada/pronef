@@ -49,7 +49,6 @@ const RightBar = () => {
           <p className="font-normal text-xs text-neutral-400">See all</p>
         </div>
         {nfts.map((nft, i) => {
-          const imgPath = useLoadImage(nft)
           if(i < 3) {
 
             return (
@@ -57,7 +56,7 @@ const RightBar = () => {
                 key={nft.id}
                 title={nft.title}
                 subtitle={`Sold at ${nft.price} ETH`}
-                imgUrl={imgPath || '/assets/images/nft01.png'}
+                imgUrl={nft}
                 time={nft.created_at}
               />
             )
@@ -72,14 +71,13 @@ const RightBar = () => {
           <p className="font-normal text-xs text-neutral-400">See all</p>
         </div>
         {nfts.map((nft, i) => {
-          const imgPath = useLoadImage(nft)
           if(nft.creator == user?.name && i < 5) {
             return (
               <Box
               key={nft.id}
               title={nft.title}
               subtitle={`Sold at ${nft.price} ETH`}
-              imgUrl={imgPath || '/assets/images/nft01.png'}
+              imgUrl={nft}
               time={nft.created_at}
               />
             )

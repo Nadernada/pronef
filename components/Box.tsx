@@ -1,7 +1,9 @@
+import useLoadImage from "@/hooks/useLoadImage"
+import { Nft } from "@/type"
 import Image from "next/image"
 
 interface BoxProps {
-  imgUrl: string
+  imgUrl: Nft
   title: string
   subtitle: string
   time: string
@@ -16,12 +18,13 @@ const Box: React.FC<BoxProps> = ({
 
   const current = new Date();
   const elapsed = ((Date.parse(current.toString()) - Date.parse(time)) / (1000 * 60)).toFixed()
+  const imgPath = useLoadImage(imgUrl)
 
   return (
     <div className="flex flex-row justify-start items-center gap-x-3">
       <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
         <Image
-          src={imgUrl}
+          src={imgPath || '/assets/images/nft01.png'}
           alt="avatar"
           width={100}
           height={100}
