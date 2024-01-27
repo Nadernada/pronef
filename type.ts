@@ -13,4 +13,6 @@ export interface Nft {
   user_id: string
   creator: string
   img_path: string
+  created_at: string
+  category: string
 }

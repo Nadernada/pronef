@@ -1,5 +1,4 @@
 import ArtistCard from "@/components/ArtistCard";
-import FeedHeader from "@/components/FeedHeader";
 import Header from "@/components/Header";
 import Feed from "@/components/Feed";
 import getUsers from "@/actions/getUsers";
@@ -33,7 +32,6 @@ export default async function Home() {
       </div>
 
       <div className="flex flex-col gap-y-3">
-        <FeedHeader />
         <Feed />
       </div>
     </div>

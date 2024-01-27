@@ -7,6 +7,7 @@ interface ButtonProps {
   onClick?: () => void
   className?: string
   type?: 'submit' | 'button' | undefined
+  disabled?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,7 +16,8 @@ const Button: React.FC<ButtonProps> = ({
   fill,
   onClick,
   className,
-  type
+  type,
+  disabled
 }) => {
   return (
     <button
@@ -28,14 +30,14 @@ const Button: React.FC<ButtonProps> = ({
         mt-2
         px-2
         md:px-6 py-1
-        hover:bg-neutral-800
         transition-colors
         ${outline && 'border-black border-[1px]'}
         ${fill && 'bg-black text-white'}
-        ${className}
+        ${disabled? null : className + ' hover:bg-neutral-800'}
       `}
+      disabled={disabled}
     >
-      {label}
+      {disabled? 'Uploading...' : label}
     </button>
   )
 }

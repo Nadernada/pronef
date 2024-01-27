@@ -10,12 +10,14 @@ import Button from './Button'
 import { useUser } from '@/hooks/useUser'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const UploadModal = () => {
 
   const supabaseClient = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   const uploadModal = useUploadModal()
   const {
@@ -25,6 +27,7 @@ const UploadModal = () => {
   } = useForm<FieldValues>()
 
   const onSubmit: SubmitHandler<FieldValues> = async(values) => {
+    setLoading(true)
     const imgFile = values.image?.[0]
 
     try {
@@ -47,10 +50,12 @@ const UploadModal = () => {
                                         price: values?.price,
                                         img_path: imgData?.path,
                                         user_id: user?.id,
-                                        creator: user?.name
+                                        creator: user?.name,
+                                        category: values?.category
                                       })
 
       if(error) {
+        setLoading(false)
         return toast.error(error.message)
       }
       
@@ -59,6 +64,7 @@ const UploadModal = () => {
       uploadModal.onClose()
       reset()
       router.refresh()
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -100,6 +106,26 @@ const UploadModal = () => {
             focus:shadow-yellow-500/60
           '
         />
+
+        <div className="flex flex-col gap-y-2">
+          <p>Choose category</p>
+          <select {...register("category")} 
+          className='
+            bg-lime-100
+            placeholder:text-lime-500
+            focus:outline-none
+            focus:shadow-lg
+            focus:shadow-lime-500/60
+            p-2
+            rounded-md
+          '>
+            <option value="Art">Art</option>
+            <option value="Music">Music</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Utility">Utility</option>
+          </select>
+        </div>
+
         <div className='flex flex-col gap-y-2'>
           <p>Select your image</p>
           <Input
@@ -127,6 +153,7 @@ const UploadModal = () => {
             hover:text-white
           '
           type='submit'
+          disabled={loading}
         />
       </form>
     </Modal>

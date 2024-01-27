@@ -13,6 +13,10 @@ const Box: React.FC<BoxProps> = ({
   subtitle,
   time
 }) => {
+
+  const current = new Date();
+  const elapsed = ((Date.parse(current.toString()) - Date.parse(time)) / (1000 * 60)).toFixed()
+
   return (
     <div className="flex flex-row justify-start items-center gap-x-3">
       <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
@@ -28,7 +32,7 @@ const Box: React.FC<BoxProps> = ({
         <p className="text-xs font-semibold">{title}</p>
         <p className="text-[9px] font-normal text-neutral-500">{subtitle}</p>
       </div>
-      <p className="text-xs font-semibold ml-auto">{time}</p>
+      <p className="text-xs font-semibold ml-auto">{elapsed.toString() + 'min ago'}</p>
     </div>
   )
 }

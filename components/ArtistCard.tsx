@@ -33,7 +33,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({
           className="sm:w-[90px] sm:h-[90px] rounded-full border-[1px] border-white"
         />
         <p className="font-bold text-sm md:text-md mt-2 leading-tight">{name}</p>
-        <p className="font-normal text-xs text-neutral-400">{bid}</p>
+        <p className="font-normal text-xs text-neutral-400">Bio</p>
         <Button
           fill
           label="Follow +"
