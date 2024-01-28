@@ -1,9 +1,10 @@
 'use client'
 
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { IconType } from "react-icons"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import useLogoutModal from "@/hooks/useLogoutModal"
+import { useSession } from "@supabase/auth-helpers-react"
 
 interface NavLinksProps {
   label: string
@@ -21,17 +22,9 @@ const NavLinks: React.FC<NavLinksProps> = ({
 
   const pathname = usePathname()
   const isActive = pathname === path
-  const supabaseClient = useSupabaseClient()
-  const router = useRouter()
+  const logoutModal = useLogoutModal()
+  const session = useSession()
 
-  const handleLogout = async() => {
-    const { error} = await supabaseClient.auth.signOut()
-    router.refresh()
-
-    if(error) {
-      console.log(error)
-    }
-  }
 
   if (label !== 'Logout') {
     return (
@@ -60,10 +53,10 @@ const NavLinks: React.FC<NavLinksProps> = ({
         {path === '/favorite' && <div className="h-[2px] w-[90%] bg-neutral-200 mt-5" />}
       </Link>
     )
-  } else {
+  } else if(session) {
     return (
       <button
-        onClick={handleLogout}
+        onClick={logoutModal.onOpen}
         className={`mt-auto flex flex-col items-center md:items-start`}
       >
         <div

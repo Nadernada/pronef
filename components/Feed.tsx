@@ -20,6 +20,7 @@ const Feed = () => {
 
   const [isActive, setIsActive] = useState('All')
   const nfts = useNftStore(state => state.nfts)
+  const searchValue = useNftStore(state => state.filterValue)
 
   return (
    <div>
@@ -63,14 +64,23 @@ const Feed = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6">
-      {nfts.map((data) => {
-        const similar = isActive === data.category
-        if(similar || isActive === 'All')  { return (
-        <NftCard
-          key={data.id}
-          data={data}
-        />
-      )} })}
+        {nfts.map((data) => {
+          const similar = isActive === data.category
+          if(searchValue !== '')  { 
+            if(data?.title.toLowerCase().includes(searchValue)) return (
+              <NftCard
+                key={data.id}
+                data={data}
+              />
+            ) } else if (similar || isActive === 'All') {
+              return (
+                <NftCard
+                  key={data?.id}
+                  data={data}
+                />
+              )
+            } 
+        })}
       </div>
     </div>
   )

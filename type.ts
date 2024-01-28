@@ -4,6 +4,7 @@ export interface User {
   email: string
   avatar_url?: string | undefined
   created_at: string
+  coins: number
 }
 
 export interface Nft {

@@ -1,7 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['lh3.googleusercontent.com', "omsosdjdybrauyhdqeut.supabase.co"]
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'omsosdjdybrauyhdqeut.supabase.co',
+        port: ''
+      }
+      ]
   }
 }
 
