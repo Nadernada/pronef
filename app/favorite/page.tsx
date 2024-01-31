@@ -2,7 +2,7 @@ import Feed from '@/components/Feed'
 import Header from '@/components/Header'
 import React from 'react'
 
-const page = () => {
+const Favorite = () => {
   return (
     <div>
       <Header />
@@ -10,4 +10,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Favorite

@@ -5,7 +5,7 @@ import NftCard from '@/components/NftCard'
 import useNftStore from '@/hooks/useNftStore'
 import React from 'react'
 
-const page = () => {
+const Market = () => {
 
   const nfts = useNftStore(state => state.nfts)
 
@@ -29,4 +29,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Market
