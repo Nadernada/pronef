@@ -39,6 +39,11 @@ const NftCard: React.FC<NFTCardProps> = ({
 }) => {
 
   const imgPath = useLoadImage(data)
+  const ending_at = data.bet_ends_in * 1000 * 60 * 60 + (Date.parse(data?.created_at.toString()))
+  const countdown = Date.now() - ending_at 
+  const ended = countdown > 0
+
+  
   
 
   return (
@@ -53,9 +58,17 @@ const NftCard: React.FC<NFTCardProps> = ({
     </div>
     <div className=" flex flex-row justify-between items-center p-4 -mt-8 z-10">
       <People />
-      <div className="bg-white rounded-lg flex flex-col justify-center items-center p-2 shadow-md">
-        <p className="text-xs text-neutral-400 font-normal">Ending in</p>
-        <p className="text-md font-bold">10h 20m</p>
+      <div className="rounded-lg flex flex-col justify-center items-center p-2 shadow-md bg-white">
+        {
+          ended ? (
+            <p className="text-md font-bold text-red-700">Ended</p>
+          ) : (
+            <>
+              <p className="text-xs text-neutral-400 font-normal">Ending in</p>
+              <p className="text-md font-bold">{-(countdown / 1000 /60 /60).toFixed()}h</p>
+            </>
+          )
+        }
       </div>
     </div>
     <div className="flex flex-col justify-center items-start px-3 pb-3">

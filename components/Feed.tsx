@@ -3,7 +3,7 @@
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react'
 import useNftStore from '@/hooks/useNftStore';
 import NftCard from './NftCard';
@@ -21,19 +21,25 @@ const Feed = () => {
   const [isActive, setIsActive] = useState('All')
   const nfts = useNftStore(state => state.nfts)
   const searchValue = useNftStore(state => state.filterValue)
+  const [following, setFollowing] = useState('following')
+
+  const handleFeed = (e: SelectChangeEvent) => {
+    setFollowing(e.target.value as string)
+  }
 
   return (
    <div>
     <div className='flex flex-row gap-x-4 items-center'>
-        <p className="text-lg font-bold">Feed</p>
+        <p className="text-lg font-bold">Featured Artworks</p>
         <FormControl  sx={{ m: 1, minWidth: 130 }} size="small">
-          <InputLabel id="demo-simple-select-label"  className='text-sm'>Following</InputLabel>
+          <InputLabel id="demo-simple-select-label"  className='text-sm'>Show</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={''}
-            label="Following"
+            value={following}
+            label="Show"
             className='rounded-full'
+            onChange={handleFeed}
           >
             <MenuItem value={'following'}>Following</MenuItem>
             <MenuItem value={'everyone'}>Everyone</MenuItem>

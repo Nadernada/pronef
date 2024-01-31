@@ -51,7 +51,8 @@ const UploadModal = () => {
                                         img_path: imgData?.path,
                                         user_id: user?.id,
                                         creator: user?.name,
-                                        category: values?.category
+                                        category: values?.category,
+                                        bet_ends_in: values?.bet_ends_in
                                       })
 
       if(error) {
@@ -61,9 +62,9 @@ const UploadModal = () => {
       
 
       toast.success('Your NFT has been uploaded!')
+      router.refresh()
       uploadModal.onClose()
       reset()
-      router.refresh()
       setLoading(false)
     } catch (error) {
       console.log(error);
@@ -96,6 +97,19 @@ const UploadModal = () => {
         <Input
           {...register('price', { required: true })}
           placeholder='Set your price'
+          type='number'
+          disabled={false}
+          className='
+            bg-yellow-100
+            placeholder:text-yellow-500
+            focus:outline-none
+            focus:shadow-lg
+            focus:shadow-yellow-500/60
+          '
+        />
+        <Input
+          {...register('bet_ends_in', { required: true })}
+          placeholder='Hours to close the bet'
           type='number'
           disabled={false}
           className='

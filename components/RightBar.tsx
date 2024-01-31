@@ -7,9 +7,7 @@ import { useSessionContext } from "@supabase/auth-helpers-react"
 import Button from "./Button"
 import useAuthModal from "@/hooks/useAuthModal"
 import getNFTs from "@/actions/getNFTs"
-import { useEffect, useState } from "react"
-import { Nft } from "@/type"
-import useLoadImage from "@/hooks/useLoadImage"
+import { useEffect} from "react"
 import { useUser } from "@/hooks/useUser"
 import useNftStore from "@/hooks/useNftStore"
 
@@ -18,7 +16,6 @@ const RightBar = () => {
   const { session } = useSessionContext()
   const user = useUser()
   const authModal = useAuthModal()
-  // const [nfts, setNfts] = useState<Nft[]>([])
   const nfts = useNftStore(state => state.nfts)
 
   const handleLogin = () => {
@@ -34,7 +31,7 @@ const RightBar = () => {
       }      
       
     })()
-  }, [nfts])
+  }, [])
   
 
     return (

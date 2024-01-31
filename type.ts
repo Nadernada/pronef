@@ -16,4 +16,14 @@ export interface Nft {
   img_path: string
   created_at: string
   category: string
+  bet_ends_in: number
+}
+
+export interface Bid {
+  id: string
+  bidder: string
+  price: number
+  nft: string
+  ended: boolean
+  created_at: string
 }
