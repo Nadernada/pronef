@@ -1,7 +1,6 @@
 'use client'
 
 import Box from "./Box"
-import { NFTData } from "@/constants/dummy"
 import Profile from "./Profile"
 import { useSessionContext } from "@supabase/auth-helpers-react"
 import Button from "./Button"
@@ -10,24 +9,27 @@ import getNFTs from "@/actions/getNFTs"
 import { useEffect} from "react"
 import { useUser } from "@/hooks/useUser"
 import useNftStore from "@/hooks/useNftStore"
+import getBids from "@/actions/getBids"
 
 const RightBar = () => {
 
   const { session } = useSessionContext()
   const user = useUser()
   const authModal = useAuthModal()
-  const nfts = useNftStore(state => state.nfts)
+  const nftStore = useNftStore()
+  const nfts = nftStore.nfts
 
   const handleLogin = () => {
     authModal.onOpen()
   }
 
-  const setNfts = useNftStore(state => state.allNfts)
   useEffect(() => {
     (async() => {
-      const data = await getNFTs()
-      if(data) {
-       setNfts(data)
+      const nfts = await getNFTs()
+      const bids = await getBids()
+      if(nfts && bids) {
+       nftStore.allNfts(nfts)
+       nftStore.allBids(bids)
       }      
       
     })()

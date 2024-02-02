@@ -4,6 +4,9 @@ import Image from "next/image"
 import Button from "./Button"
 import useLoadImage from "@/hooks/useLoadImage"
 import { Nft } from "@/type"
+import useBidModal from "@/hooks/useBidModal"
+import useNftStore from "@/hooks/useNftStore"
+import { useUser } from "@/hooks/useUser"
 
 const People = () => {
 
@@ -12,6 +15,8 @@ const People = () => {
     '/assets/images/person02.png',
     '/assets/images/person03.png',
   ]
+
+  const nftStore = useNftStore()
 
   return (
     <div className="flex flex-row items-center justify-center">
@@ -43,7 +48,17 @@ const NftCard: React.FC<NFTCardProps> = ({
   const countdown = Date.now() - ending_at 
   const ended = countdown > 0
 
-  
+  const bidModal = useBidModal()
+  const nftStore = useNftStore()
+  const user = useUser()
+  const bidded = nftStore.bids.filter(bid => bid.nft.id == data.id && bid.bidder == user?.id)
+
+  const handleClick = () => {
+    bidModal.set_nft_id(data?.id)
+    bidModal.onOpen()    
+    console.log(nftStore.bids);
+    
+  }
   
 
   return (
@@ -82,11 +97,15 @@ const NftCard: React.FC<NFTCardProps> = ({
           height={20}
         />
         <p className="text-sm font-medium">{data.price}</p>
-        <Button
+        {
+          !ended && !bidded && <Button
           label="Place a bid"
           fill
           className=" text-sm ml-auto px-6 py-1"
+          onClick={handleClick}
         />
+        }
+        
       </div>
     </div>
   </div>

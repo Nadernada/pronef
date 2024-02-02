@@ -17,7 +17,7 @@ const Box: React.FC<BoxProps> = ({
   time
 }) => {
 
-  const timeElapsed = convertDate(time)
+  const timeElapsed = Number(convertDate(time))
   const imgPath = useLoadImage(imgUrl)
 
   return (
@@ -35,7 +35,9 @@ const Box: React.FC<BoxProps> = ({
         <p className="text-xs font-semibold">{title}</p>
         <p className="text-[9px] font-normal text-neutral-500">{subtitle}</p>
       </div>
-      <p className="text-xs font-semibold ml-auto">{timeElapsed.toString() + 'min ago'}</p>
+      <p className="text-xs font-semibold ml-auto">{
+      timeElapsed > 59 ? (timeElapsed /60).toFixed() + 'h ago' : timeElapsed + 'min ago'
+      }</p>
     </div>
   )
 }

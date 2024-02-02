@@ -1,4 +1,5 @@
 import AuthModal from "@/components/AuthModal"
+import BidModal from "@/components/BidModal"
 import LogoutModal from "@/components/LogoutModal"
 import UploadModal from "@/components/UploadModal"
 
@@ -9,6 +10,7 @@ const ModalProvider = () => {
       <AuthModal />
       <UploadModal />
       <LogoutModal />
+      <BidModal />
     </>
   )
 }

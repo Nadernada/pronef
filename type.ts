@@ -20,10 +20,11 @@ export interface Nft {
 }
 
 export interface Bid {
-  id: string
+  id: number
   bidder: string
   price: number
-  nft: string
-  ended: boolean
+  nft: Nft
   created_at: string
+  user: User
+
 }
