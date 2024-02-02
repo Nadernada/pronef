@@ -23,7 +23,7 @@ const Favorite = () => {
         {
           bids?.map((bid) => {
             if(bid?.bidder === user?.id) {
-              return <NftCard data={bid?.nft} />
+              return <NftCard key={bid?.id} data={bid?.nft} />
             }
           })
         }
