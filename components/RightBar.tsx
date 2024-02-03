@@ -10,6 +10,7 @@ import { useEffect} from "react"
 import { useUser } from "@/hooks/useUser"
 import useNftStore from "@/hooks/useNftStore"
 import getBids from "@/actions/getBids"
+import Link from "next/link"
 
 const RightBar = () => {
 
@@ -69,7 +70,7 @@ const RightBar = () => {
       <div className="flex flex-col gap-y-3">
         <div className="flex flex-row justify-between items-center">
           <p className="font-bold text-lg ">History</p>
-          <p className="font-normal text-xs text-neutral-400">See all</p>
+          <Link className="font-normal text-xs text-neutral-400 hover:text-neutral-800" href={'/history'}>See all</Link>
         </div>
         {nfts.map((nft, i) => {
           if(nft.creator == user?.name && i < 5) {
