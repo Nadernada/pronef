@@ -62,6 +62,7 @@ const UploadModal = () => {
       
 
       toast.success('Your NFT has been uploaded!')
+      router.push('/')
       router.refresh()
       uploadModal.onClose()
       reset()

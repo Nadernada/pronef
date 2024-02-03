@@ -1,4 +1,3 @@
-'use client'
 
 import { LuLayoutDashboard } from 'react-icons/lu'
 import { BiSolidDashboard } from 'react-icons/bi'
@@ -49,7 +48,7 @@ export const Links = [
   },
   {
     label: 'History',
-    path: '/settings',
+    path: '/history',
     iconOutline: AiOutlineHistory,
     iconFill: AiOutlineHistory,
   },

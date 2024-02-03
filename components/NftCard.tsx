@@ -52,11 +52,12 @@ const NftCard: React.FC<NFTCardProps> = ({
   const nftStore = useNftStore()
   const user = useUser()
   const bidded = nftStore.bids.filter(bid => bid.nft.id == data.id && bid.bidder == user?.id)
+  console.log(bidded);
+  
 
   const handleClick = () => {
     bidModal.set_nft_id(data?.id)
     bidModal.onOpen()    
-    console.log(nftStore.bids);
     
   }
   
@@ -98,12 +99,15 @@ const NftCard: React.FC<NFTCardProps> = ({
         />
         <p className="text-sm font-medium">{data.price}</p>
         {
-          !ended && !bidded && <Button
-          label="Place a bid"
-          fill
-          className=" text-sm ml-auto px-6 py-1"
-          onClick={handleClick}
-        />
+          !ended &&
+          (bidded.length === 0) &&
+          (data.user_id !== user?.id) && 
+            <Button
+              label="Place a bid"
+              fill
+              className=" text-sm ml-auto px-6 py-1"
+              onClick={handleClick}
+            />
         }
         
       </div>

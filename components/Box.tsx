@@ -1,4 +1,4 @@
-import { convertDate } from "@/actions/convertDate"
+import { convertDate, timeElapsed } from "@/actions/convertDate"
 import useLoadImage from "@/hooks/useLoadImage"
 import { Nft } from "@/type"
 import Image from "next/image"
@@ -17,7 +17,6 @@ const Box: React.FC<BoxProps> = ({
   time
 }) => {
 
-  const timeElapsed = Number(convertDate(time))
   const imgPath = useLoadImage(imgUrl)
 
   return (
@@ -35,9 +34,7 @@ const Box: React.FC<BoxProps> = ({
         <p className="text-xs font-semibold">{title}</p>
         <p className="text-[9px] font-normal text-neutral-500">{subtitle}</p>
       </div>
-      <p className="text-xs font-semibold ml-auto">{
-      timeElapsed > 59 ? (timeElapsed /60).toFixed() + 'h ago' : timeElapsed + 'min ago'
-      }</p>
+      <p className="text-xs font-semibold ml-auto">{ timeElapsed(time) }</p>
     </div>
   )
 }

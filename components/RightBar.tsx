@@ -31,6 +31,8 @@ const RightBar = () => {
        nftStore.allNfts(nfts)
        nftStore.allBids(bids)
       }      
+      console.log('reload');
+      
       
     })()
   }, [])
