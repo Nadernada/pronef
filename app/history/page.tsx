@@ -31,7 +31,7 @@ const History = () => {
                 const imgPath = useLoadImage(nftOrBid?.nft)
 
                   return (
-                    <div className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
+                    <div key={nftOrBid.id} className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
                       <div className="flex flex-row gap-x-2 items-center">
                         <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
                           <Image
@@ -54,7 +54,7 @@ const History = () => {
                 const imgPath = useLoadImage(nftOrBid)
 
                   return (
-                    <div className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
+                    <div key={nftOrBid.id} className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
                       <div className="flex flex-row gap-x-2 items-center">
                           <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
                             <Image
