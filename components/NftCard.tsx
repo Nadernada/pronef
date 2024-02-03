@@ -99,15 +99,19 @@ const NftCard: React.FC<NFTCardProps> = ({
         />
         <p className="text-sm font-medium">{data.price}</p>
         {
-          !ended &&
+          (!ended &&
           (bidded.length === 0) &&
-          (data.user_id !== user?.id) && 
+          (data.user_id !== user?.id)) ? 
             <Button
               label="Place a bid"
               fill
               className=" text-sm ml-auto px-6 py-1"
               onClick={handleClick}
             />
+          : (!ended && (bidded.length === 1) &&
+            (data.user_id !== user?.id)) ?
+              <p className="text-sm ml-auto px-6 py-1 bg-blue-500 rounded-3xl text-white">Bet Placed</p>
+          : null
         }
         
       </div>

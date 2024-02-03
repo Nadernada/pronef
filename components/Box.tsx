@@ -1,4 +1,4 @@
-import { convertDate, timeElapsed } from "@/actions/convertDate"
+import { timeElapsed } from "@/actions/convertDate"
 import useLoadImage from "@/hooks/useLoadImage"
 import { Nft } from "@/type"
 import Image from "next/image"

@@ -15,7 +15,8 @@ const History = () => {
   const bids = nftStore.bids
   const data: (Nft | Bid)[] = [nfts, bids].flat()
   const dataSorted = data.sort((a, b) => Number(convertDate(a.created_at)) - Number(convertDate(b.created_at)))
-  
+
+  const imgPath = (arg: Nft) => useLoadImage(arg)
 
   return (
     <div className='flex flex-col gap-y-6 pt-6'>
@@ -25,17 +26,14 @@ const History = () => {
         {
           (nfts || bids) ?
             dataSorted.map((nftOrBid) => {
-              // @ts-ignore
-              if(nftOrBid.bidder) {
-                // @ts-ignore
-                const imgPath = useLoadImage(nftOrBid?.nft)
 
-                  return (
+              return (
                     <div key={nftOrBid.id} className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
                       <div className="flex flex-row gap-x-2 items-center">
                         <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
                           <Image
-                            src={imgPath || '/assets/images/nft01.png'}
+                          // @ts-ignore
+                            src={imgPath(nftOrBid?.nft) || imgPath(nftOrBid) || '/assets/images/nft01.png'}
                             alt="avatar"
                             width={100}
                             height={100}
@@ -43,35 +41,18 @@ const History = () => {
                             />
                         </div>
                         {/* @ts-ignore */}
-                        <p>You bid on {nftOrBid?.nft.creator}'s NFT for <span className="font-semibold">{nftOrBid?.price}</span>ETH</p>
+                        <p>
+                          {
+                            //@ts-ignore
+                          nftOrBid.bidder ? `You bid on ${nftOrBid?.nft.creator}'s NFT for ${nftOrBid?.price}ETH.`
+                          //@ts-ignore
+                          : `You published an NFT "${nftOrBid.title}".`
+                          }
+                        </p>
                       </div>
                       <p className='text-xs font-semibold text-neutral-800'>{ timeElapsed(nftOrBid?.created_at) }</p>
                     </div>
-                  )
-                } else {
-
-                // @ts-ignore
-                const imgPath = useLoadImage(nftOrBid)
-
-                  return (
-                    <div key={nftOrBid.id} className="odd:bg-neutral-200 even:bg-white p-4 align-left flex flex-row justify-between items-center">
-                      <div className="flex flex-row gap-x-2 items-center">
-                          <div className="h-[50px] w-[50px] rounded-full overflow-hidden ">
-                            <Image
-                              src={imgPath || '/assets/images/nft01.png'}
-                              alt="avatar"
-                              width={100}
-                              height={100}
-                              className="min-w-[50px] min-h-[50px] object-cover"
-                              />
-                          </div>
-                          {/* @ts-ignore */}
-                          <p>You published an NFT "<span className="font-semibold">{nftOrBid?.title}</span>"</p>
-                        </div>
-                      <p className='text-xs font-semibold text-neutral-800'>{ timeElapsed(nftOrBid?.created_at) }</p>
-                      </div>
-                )
-              }
+              )
             })
           :  (<p>No History found! try publishing your first NFT.</p>)
           }
